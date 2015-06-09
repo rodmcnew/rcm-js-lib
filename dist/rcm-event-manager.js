@@ -3,7 +3,7 @@
  * REQUIRES: rcmGuid
  * @constructor
  */
-var RcmEventManager = function() {
+var RcmEventManager = function () {
 
     var self = this;
 
@@ -27,11 +27,11 @@ var RcmEventManager = function() {
 
     /**
      * on - register listener
-     * @param event
-     * @param method
-     * @param [id] - Can specify an even id so only on listener will be registered
-     * @param [checkPromise] - For getting results of event on register of listener, in case it already fired
-     * @returns {event id}
+     * @param {string} event
+     * @param {function} method
+     * @param {string} [id] - Can specify an even id so only on listener will be registered
+     * @param {bool} [checkPromise] - Defaults to true. Calls listener immediately if the event has already fired
+     * @returns {string} evnet id
      */
     self.on = function (event, method, id, checkPromise) {
 
@@ -39,14 +39,15 @@ var RcmEventManager = function() {
             events[event] = {};
         }
 
-        if(typeof id  === 'undefined' || id === null || id === '') {
+        if (typeof id === 'undefined' || id === null || id === '') {
 
             id = guid.generate();
         }
 
         events[event][id] = method;
 
-        if (checkPromise) {
+        //checkPromise defaults to true
+        if (checkPromise || typeof checkPromise == 'undefined') {
             honorPromise(event, method);
         }
 
@@ -58,7 +59,7 @@ var RcmEventManager = function() {
      * @param event
      * @param id
      */
-    self.remove = function(event, id){
+    self.remove = function (event, id) {
 
         if (!events[event]) {
             return;
@@ -84,14 +85,14 @@ var RcmEventManager = function() {
             jQuery.each(
                 events[event],
                 function (index, value) {
-                    if(typeof value === 'function') {
+                    if (typeof value === 'function') {
                         value(args);
                     }
                 }
             );
-
-            makePromise(event, args);
         }
+
+        makePromise(event, args);
     };
 
     /**
@@ -99,7 +100,7 @@ var RcmEventManager = function() {
      * @param event
      * @param args
      */
-    var makePromise = function(event, args){
+    var makePromise = function (event, args) {
 
         promises[event] = args;
     };
@@ -109,7 +110,7 @@ var RcmEventManager = function() {
      * @param event
      * @param method
      */
-    var honorPromise = function(event, method){
+    var honorPromise = function (event, method) {
 
         if (promises[event]) {
             method(promises[event]);
@@ -149,7 +150,7 @@ var RcmEventManager = function() {
         jQuery.each(
             events[event],
             function (index, value) {
-                if(typeof value === 'function') {
+                if (typeof value === 'function') {
                     return true;
                 }
             }
