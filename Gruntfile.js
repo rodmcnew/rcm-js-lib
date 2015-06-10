@@ -31,6 +31,24 @@ module.exports = function (grunt) {
                         ]
                     }
                 }
+            },
+            copy: {
+                dist: {
+                    files: [
+                        {
+                            expand: true,
+                            cwd: 'src',
+                            src: 'rcm-guid.js',
+                            dest: 'dist'
+                        },
+                        {
+                            expand: true,
+                            cwd: 'src',
+                            src: 'rcm-event-manager.js',
+                            dest: 'dist'
+                        }
+                    ]
+                }
             }
         }
     );
@@ -38,7 +56,8 @@ module.exports = function (grunt) {
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Default task(s).
-    grunt.registerTask('default', ['uglify', 'concat']);
+    grunt.registerTask('default', ['uglify', 'concat', 'copy']);
 };
