@@ -9,12 +9,17 @@ module.exports = function (grunt) {
                     options: {
                         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                         mangle: false,
-                        sourceMap: true,
-                        sourceMapName: 'dist/<%= pkg.name %>.map'
+                        sourceMap: true
                     },
                     files: {
                         'dist/<%= pkg.name %>.min.js': [
                             'src/rcm-guid.js',
+                            'src/rcm-event-manager.js'
+                        ],
+                        'dist/rcm-guid.min.js': [
+                            'src/rcm-guid.js'
+                        ],
+                        'dist/rcm-event-manager.min.js': [
                             'src/rcm-event-manager.js'
                         ]
                     }
