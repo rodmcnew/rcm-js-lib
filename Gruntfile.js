@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                         'dist/<%= pkg.name %>.min.js': [
                             'src/rcm-guid.js',
                             'src/rcm-event-manager.js'
-                        ],
+                        ]
                     }
                 }
             },
