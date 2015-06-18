@@ -16,12 +16,12 @@ angular.module('RcmJsLib').service(
 );
 
 /**
- * RcmEventManager Class
- * returns RcmEventManager class
- * - use new RcmEventManager() to instatiate
+ * RcmEventManagerClass
+ * returns RcmEventManagerClass
+ * - use new RcmEventManagerClass() to instantiate
  */
 angular.module('RcmJsLib').factory(
-    'RcmEventManager',
+    'RcmEventManagerClass',
     function () {
 
         return RcmEventManager;
