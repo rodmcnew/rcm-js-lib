@@ -28,7 +28,7 @@ var RcmEventManager = function () {
     /**
      * on - register listener
      * @param {string} event
-     * @param {function} method
+     * @param {function} method - If the method returns false, it will stop the event stack
      * @param {string} [id] - Can specify an even id so only on listener will be registered
      * @param {bool} [checkPromise] - Defaults to true. Calls listener immediately if the event has already fired
      * @returns {string} evnet id
@@ -86,7 +86,11 @@ var RcmEventManager = function () {
                 events[event],
                 function (index, value) {
                     if (typeof value === 'function') {
-                        value(args);
+                        var continueEvents = value(args);
+                        // If a callback returns false, we break the event stack
+                        if(continueEvents === false){
+                            return false;
+                        }
                     }
                 }
             );
