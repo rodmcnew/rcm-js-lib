@@ -82,8 +82,13 @@ var RcmEventManager = function () {
     self.trigger = function (event, args) {
 
         if (events[event]) {
-            for (var value in events) {
-                if (!events.hasOwnProperty(value)) continue;
+
+            var listeners = events[event];
+
+            for (var key in listeners) {
+                if (!listeners.hasOwnProperty(key)) continue;
+
+                var value = listeners[key];
 
                 if (typeof value === 'function') {
                     var continueEvents = value(args);
@@ -150,9 +155,12 @@ var RcmEventManager = function () {
             return false;
         }
 
-        for (var value in events[event]) {
-            if (!events.hasOwnProperty(value)) continue;
+        var listeners = events[event];
 
+        for (var key in listeners) {
+            if (!listeners.hasOwnProperty(key)) continue;
+
+            var value = listeners[key];
 
             if (typeof value === 'function') {
                 return true;
