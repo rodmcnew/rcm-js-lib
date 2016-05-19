@@ -174,7 +174,7 @@ var RcmEventManager = function () {
             return false;
         }
 
-        for (var value in events) {
+        for (var value in events[event]) {
             if (!events.hasOwnProperty(value)) continue;
 
 
