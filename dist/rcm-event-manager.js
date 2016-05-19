@@ -82,18 +82,17 @@ var RcmEventManager = function () {
     self.trigger = function (event, args) {
 
         if (events[event]) {
-            jQuery.each(
-                events[event],
-                function (index, value) {
-                    if (typeof value === 'function') {
-                        var continueEvents = value(args);
-                        // If a callback returns false, we break the event stack
-                        if(continueEvents === false){
-                            return false;
-                        }
+            for (var value in events) {
+                if (!events.hasOwnProperty(value)) continue;
+
+                if (typeof value === 'function') {
+                    var continueEvents = value(args);
+                    // If a callback returns false, we break the event stack
+                    if (continueEvents === false) {
+                        return false;
                     }
                 }
-            );
+            }
         }
 
         makePromise(event, args);
@@ -151,14 +150,14 @@ var RcmEventManager = function () {
             return false;
         }
 
-        jQuery.each(
-            events[event],
-            function (index, value) {
-                if (typeof value === 'function') {
-                    return true;
-                }
+        for (var value in events) {
+            if (!events.hasOwnProperty(value)) continue;
+
+
+            if (typeof value === 'function') {
+                return true;
             }
-        );
+        }
 
         return false;
     };
